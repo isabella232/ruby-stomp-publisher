@@ -37,7 +37,7 @@ class StompPublisher
 
       response_frame = read_frame(socket)
       if (response_frame.command != "CONNECTED")
-        raise ConnectionError.new("Failed to login: #{response_frame.body}", response_frame)
+        raise ConnectionError.new("Failed to login", response_frame)
       end
     end
 
@@ -46,10 +46,12 @@ class StompPublisher
       socket.write(frame.to_s)
 
       response_frame = read_frame(socket)
-      if (response_frame.command != "RECEIPT")
-        raise ConnectionError.new("Did not receive expected receipt", response_frame)
+      if (response_frame.command == "ERROR")
+        raise ConnectionError.new("Connection error", response_frame)
+      elsif (response_frame.command != "RECEIPT")
+        raise ConnectionError.new("Unexpected response: #{response_frame.command}", response_frame)
       elsif ((response_receipt = response_frame.header["receipt-id"]) != receipt_id)
-        raise ConnectionError.new("Received unexpected receipt id: #{response_receipt}", response_frame)
+        raise ConnectionError.new("Unexpected receipt id: #{response_receipt}", response_frame)
       end
 
       receipt_id
