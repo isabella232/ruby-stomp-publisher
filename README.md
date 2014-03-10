@@ -18,7 +18,7 @@ Or install it yourself as:
 
 ## Usage
 
-```
+```ruby
 require 'stomp_publisher'
 publisher = StompPublisher.new(
   host: "localhost",
