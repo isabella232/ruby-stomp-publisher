@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["brian@nutsonline.com"]
   spec.description   = %q{A simple library for publishing messages via the STOMP protocol}
   spec.summary       = spec.description
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/nuts/ruby-stomp-publisher"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
